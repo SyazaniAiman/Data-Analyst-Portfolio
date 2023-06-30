@@ -1,0 +1,187 @@
+/******************************************************************
+Name: MR. MUHAMMAD SYAZANIAIMAN BIN MOHD SHAHIMI
+Name of program: my_sas_program.sas
+Description: This program is to extract/inquire data from Employee and Department datasets 
+             using SELECT, FROM and WHERE in SAS Studio.
+Date first written: Tue, 23-May-2023
+Date last updated: Sat, 3-June-2023
+Project folder name: MYDMCLASS_MAY_2023
+My permanent SAS library: MYLIB168
+*******************************************************************/
+
+/******************************************************************
+List employee number and employee name from the datasets given.
+*******************************************************************/
+TITLE1 'List employee number and employee name from the datasets given';
+TITLE2 'APU,TPM';
+FOOTNOTE '-----------------------End-----------------------------------';
+PROC SQL;
+SELECT e.emp_no Label = 'Employee Number',
+	     e.emp_name Label = 'Name'
+FROM MYLIB168.EMPLOYEE_DS e;
+QUIT;
+
+/********************************************************************
+List department number and department name from the datasets given.
+*********************************************************************/
+TITLE 'List department number and department name from the datasets given.';
+FOOTNOTE '-----------------------End-----------------------------------';
+PROC SQL;
+SELECT d.dept_no Label = 'Department Number',
+	     d.dept_name Label = 'Department Name'
+FROM MYLIB168.DEPARTMENT_DS d;
+QUIT;
+
+/********************************************************************
+List the details of all employees found in the datasets given.
+*********************************************************************/
+TITLE 'List the details of all employees found in the datasets given.';
+FOOTNOTE '-----------------------End-----------------------------------';
+PROC SQL;
+SELECT * /* '*' refers to all variables in the dataset(s) involve in the program*/
+FROM MYLIB168.EMPLOYEE_DS e;
+QUIT;
+
+/********************************************************************
+QUESTION 2.1 
+
+List the details of all managers or salesmen whose salary is between 1500 and 2500
+
+ANSWER:
+*********************************************************************/
+
+TITLE 'List the details of all managers or salesmen whose salary is between 1500 and 2500.';
+FOOTNOTE '-----------------------End-----------------------------------';
+
+PROC SQL;
+
+SELECT *
+FROM MYLIB168.EMPLOYEE_DS e
+WHERE ( ( e.emp_job IN ( 'MANAGER', 'SALESMAN' ) ) AND 
+		( e.emp_salary BETWEEN 1500 AND 2500 ) );
+
+QUIT;
+
+
+/********************************************************************
+QUESTION 2.2 
+
+List the employee number and name of all salesmen who work in the department number 30 and their salary is greater than or equal to 1500.
+
+ANSWER:
+*********************************************************************/
+
+TITLE1 'List the employee number and name of all salesmen who work in the department number 30 and'; 
+TITLE2 ' their salary is greater than or equal to 1500.';
+FOOTNOTE '-----------------------End-----------------------------------';
+
+PROC SQL;
+
+SELECT e.emp_no Label = 'Employee Number',
+	   e.emp_name Label = 'Employee Name'
+FROM MYLIB168.EMPLOYEE_DS e
+WHERE ( ( e.emp_job eq 'SALESMAN' ) AND 
+	    ( e.dept_no eq 30 ) AND
+	    ( e.emp_salary ge 1500 ) );
+
+QUIT;
+
+/********************************************************************
+QUESTION 3.0 
+
+List the employee's name whose name starts with the letter ‘J’.
+
+ANSWER:
+*********************************************************************/
+
+TITLE 'List the employees name whose name starts with the letter [J]';
+FOOTNOTE '-----------------------End-----------------------------------';
+
+PROC SQL;
+
+SELECT e.emp_name Label = 'Employee Name'
+FROM MYLIB168.EMPLOYEE_DS e
+WHERE ( e.emp_name LIKE 'J%' );
+
+QUIT;
+
+/********************************************************************
+QUESTION 3.1 
+
+List the employee’s name whose name ends with the letter ‘R’.
+
+ANSWER:
+*********************************************************************/
+
+TITLE 'List the employee’s name whose name ends with the letter [R]';
+FOOTNOTE '-----------------------End-----------------------------------';
+
+PROC SQL;
+
+SELECT e.emp_name Label = 'Employee Name'
+FROM MYLIB168.EMPLOYEE_DS e
+WHERE ( e.emp_name LIKE '%R' );
+
+QUIT;
+
+
+/********************************************************************
+QUESTION 3.2 
+
+List the employee name whose name starts with the alphabet ‘M’ and ends with the alphabet ‘N’.
+
+ANSWER:
+*********************************************************************/
+
+TITLE1 'List the employee name whose name starts with the alphabet [M] and'; 
+TITLE2 ' ends with the alphabet [N]';
+FOOTNOTE '-----------------------End-----------------------------------';
+
+PROC SQL;
+
+SELECT e.emp_name Label = 'Employee Name'
+FROM MYLIB168.EMPLOYEE_DS e
+WHERE ( e.emp_name LIKE 'M%N' );
+
+QUIT;
+
+/********************************************************************
+QUESTION 3.3 
+
+List the employee name whose name starts with the alphabet, either ‘K’ or ‘G’
+
+ANSWER:
+*********************************************************************/
+
+TITLE1 'List the employee name whose name starts with the alphabet,';
+TITLE2 ' either [K] or [G]';
+FOOTNOTE '-----------------------End-----------------------------------';
+
+PROC SQL;
+
+SELECT e.emp_name Label = 'Employee Name'
+FROM MYLIB168.EMPLOYEE_DS e
+WHERE ( ( e.emp_name LIKE 'K%' ) OR 
+	    ( e.emp_name LIKE 'G%' ) );
+
+QUIT;
+
+
+/********************************************************************
+QUESTION 3.4 
+
+List the employee name whose name has the alphabet ‘IN’ (in anywhere).
+
+ANSWER:
+*********************************************************************/
+
+TITLE 'List the employee name whose name has the alphabet [IN] (in anywhere).';
+FOOTNOTE '-----------------------End-----------------------------------';
+
+PROC SQL;
+
+SELECT e.emp_name Label = 'Employee Name'
+FROM MYLIB168.EMPLOYEE_DS e
+WHERE ( e.emp_name LIKE '%IN%' );
+
+QUIT;
